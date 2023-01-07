@@ -253,55 +253,7 @@ class dfa_nfa:
 
 
 
-        self.new_states_only=[self.table[0]['ε']]            
-        self.new_states_flag=0
-        self.index_of_current_item=0
-        self.state_number_string='0'
-        while(self.new_states_flag!=1):
-            self.dicotnray_of_current_item=dict()
-            # self.items_of_alpha=[ [] for i in range(len(self.alpha))]
-            self.items_of_alpha=[]
-            for i in range(len(self.alpha)):
-                self.dicotnray_of_current_item[self.alpha[i]]=[]
-            for i in range(len(self.new_states_only[self.index_of_current_item])):
-                if i == 0:
-                    self.current_state_transition=self.get_epslin_closrue(self.new_states_only[self.index_of_current_item][i],self.table,self.alpha,self.breakpoint)
-                    for j in range(len(self.current_state_transition)):
-                        self.items_of_alpha.append(self.current_state_transition[j])
-                    
-
-                elif i>0:
-                    self.index_of_current_letter_toappend=0
-                    self.current_state_transition=self.get_epslin_closrue(self.new_states_only[self.index_of_current_item][i],self.table,self.alpha,self.breakpoint)
-                    for j in range(len(self.current_state_transition)):
-                        self.items_of_alpha[self.index_of_current_letter_toappend].extend(self.current_state_transition[j])
-                        self.index_of_current_letter_toappend+=1
-                    # self.index_li_toremove
-                    
-                    #     if li<1:
-                    self.indcies_of_items_to_append_to_skip_unique_list=[]
-                    if i==len(self.new_states_only[self.index_of_current_item])-1:
-                        for li in range(len(self.items_of_alpha)):
-                            self.items_of_alpha[li]=self.remove_all_instances(self.items_of_alpha[li],-1)
-                        self.actual_number_of_items_to_append=len(self.items_of_alpha)
-                        for new_lists_index in range(len(self.items_of_alpha)):
-                            if sorted(list(set(self.items_of_alpha[new_lists_index]))) in self.new_states_only:
-                                self.actual_number_of_items_to_append-=1
-                                self.indcies_of_items_to_append_to_skip_unique_list.append(new_lists_index)
-
-                        if self.actual_number_of_items_to_append==0:
-                            self.new_states_flag=1
-                        else:
-                            for letter_index in range(len(self.dicotnray_of_current_item)):
-                                self.dicotnray_of_current_item[self.alpha[letter_index]]=sorted(list(set(self.items_of_alpha[letter_index])))
-                                # state_number_int=int(state_number_string)
-                            self.dfa_table['S'+self.state_number_string]=self.dicotnray_of_current_item
-                            self.state_number_string=int(self.state_number_string)+1
-                            self.state_number_string=str(self.state_number_string)
-                            for new_lists in range(len(self.items_of_alpha)):
-                                if new_lists not in self.indcies_of_items_to_append_to_skip_unique_list:
-                                    self.new_states_only.append(self.items_of_alpha)
-            self.index_of_current_item+=1
+       
     # def generate_dfa(self):
 
                 # self.dicotnray_of_current_item
